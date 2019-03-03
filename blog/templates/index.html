@@ -5,25 +5,12 @@
     <title></title>
   </head>
   <body>
-    <h1>Welcome to my blog</h1>
-    <h3>February 28, 2018</h3>
-
-    <h4>What is a client?</h4>
-    <p>A client is an invidual computer that is accessing
-    information and programs stored in a server.</p>
-
-    <h4>What is a server?</h4>
-    <p>A server stores and provides information to clients.</p>
-
-    <h4>What is an HTTP request?</h4>
-    <p>It is an information request message from a client to a server over HTTP.
-    Some of the methods include GET, POST, PUT, DELETE.</p>
-
-    <h4>What is an HTTP response?</h4>
-    <p>An HTTP response is made from the server to client, where the server sends requested information back to the client.</p>
-
-    <h4>what is Django and why do we use it?</h4>
-    <p>Django is a web application framework, written in Python. It is used to create web apps.</p>
+    <h1> Welcome to my blog! <h1>
+    {% for article in articles %}
+      <h3> {{ article }} </h3>
+      <h5> {{ article.published_date }} </h5>
+      <p> {{ article.body }} </p>
+    {% endfor %}
 
   </body>
 </html>
