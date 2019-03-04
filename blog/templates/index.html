@@ -2,14 +2,17 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <title>Blog</title>
   </head>
   <body>
     <h1> Welcome to my blog! <h1>
     {% for article in articles %}
-      <h3> {{ article }} </h3>
-      <h5> {{ article.published_date }} </h5>
-      <p> {{ article.body }} </p>
+      <a href="{% url 'article_details' id=article.pk %}">
+        <h3> {{ article }} </h3>
+        <h5> {{ article.published_date }} </h5>
+        <p> {{ article.body }} </p>
+      </a>
     {% endfor %}
 
   </body>
