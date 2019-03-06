@@ -9,9 +9,9 @@
     <h1> Welcome to my blog! <h1>
     {% for article in articles %}
       <a href="{% url 'article_details' id=article.pk %}">
-        <h3> {{ article }} </h3>
         <h5> {{ article.published_date }} </h5>
-        <p> {{ article.body }} </p>
+        <h3> {{ article }} </h3>
+        <!-- <p> {{ article.body }} </p> -->
       </a>
     {% endfor %}
 

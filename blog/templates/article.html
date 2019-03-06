@@ -10,5 +10,29 @@
     <h1> {{ article.title }} by {{ article.author}} </h1>
     <h2> {{ article.published_date }}</h2>
     <p> {{ article.body }} </p>
+
+    <h4>Comments ({{ article.comments.count }}):</h4>
+    <ul>
+    {% for comment in article.comments.all %}
+      <li>{{ comment.message }}</li>
+    {% endfor %}
+    </ul>
+
+    <form action="{% url 'create_comment' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="article" value="{{ article.pk }}">
+
+      <label for="comment-name">
+        <span>Name:</span>
+        <input type="text" id="comment-name" name="comment-name">
+      </label>
+
+      <label for="comment-message">
+        <span>Comment:</span>
+        <textarea id="comment-message" name="comment-message"></textarea>
+      </label>
+
+      <input type="submit" name="comment-submit">
+    </form>
   </body>
 </html>
