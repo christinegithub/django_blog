@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from blog.models import Article, Topic, Comment, CommentForm
+from blog.models import Article, Topic, Comment, CommentForm, ArticleForm
 
 
 def root(request):
@@ -18,10 +18,23 @@ def article_details(request, id):
     response = render(request, 'article.html', context)
     return HttpResponse(response)
 
+def new_article(request):
+    context = {'form': ArticleForm()}
+    response = render(request, 'new_article.html', context)
+    return HttpResponse(response)
+
 def create_comment(request):
     form = CommentForm(request.POST)
     if form.is_valid():
         new_comment = form.save()
+        return HttpResponseRedirect('/home')
+    else:
+        print(form.errors)
+
+def create_article(request):
+    form = ArticleForm(request.POST)
+    if form.is_valid():
+        new_article = form.save()
         return HttpResponseRedirect('/home')
     else:
         print(form.errors)

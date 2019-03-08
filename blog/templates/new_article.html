@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>New Article</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+  </head>
+  <body>
+    <h1>New Article</h1>
+    <form action="{% url 'create_article' %}" method="post">
+      {% csrf_token %}
+
+      {{ form.as_p }}
+      <input class="submit-form" type="submit" name="article-submit">
+    </form>
+  </body>
+{% endblock %}
+
+</html>
