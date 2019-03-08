@@ -37,4 +37,6 @@ def create_article(request):
         new_article = form.save()
         return HttpResponseRedirect('/home')
     else:
+        # not showing errors(???)
         print(form.errors)
+        return HttpResponseRedirect('/home')
