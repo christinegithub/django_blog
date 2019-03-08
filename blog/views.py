@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib import messages
 from blog.models import Article, Topic, Comment, CommentForm, ArticleForm
 
 
@@ -29,7 +30,8 @@ def create_comment(request):
         new_comment = form.save()
         return HttpResponseRedirect('/home')
     else:
-        print(form.errors)
+        messages.error(request, form.errors)
+        return render(request, 'article.html', {'form': CommentForm()})
 
 def create_article(request):
     form = ArticleForm(request.POST)
@@ -37,6 +39,5 @@ def create_article(request):
         new_article = form.save()
         return HttpResponseRedirect('/home')
     else:
-        # not showing errors(???)
-        print(form.errors)
-        return HttpResponseRedirect('/home')
+        messages.error(request, form.errors)
+        return render(request, 'new_article.html', {'form':ArticleForm()})
