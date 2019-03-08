@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <title>Blog</title>
+  </head>
+  <body>
+    <header class="main-header">Christine's Django Blog</header>
+    {% block content %}
+    {% endblock %}
+  </body>
+  <footer class="main-footer">&copy Christine L.</footer>
+
+</html>

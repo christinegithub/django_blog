@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 
 class Article(models.Model):
@@ -25,3 +26,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.name
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['name', 'message', 'article']

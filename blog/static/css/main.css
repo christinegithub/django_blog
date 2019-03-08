@@ -1,0 +1,74 @@
+/* CSS for base.html */
+
+body {
+  background: white;
+}
+.main-header {
+  font-size: 40px;
+  color: #90d0e0;
+  border: solid #d8dada 2px;
+  padding: 15px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.main-footer {
+  background: #d8dada;
+  color: #3f6e79;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+/* CSS for index.html (home page) */
+
+.home-heading {
+  text-decoration: underline;
+  color: #3e6380;
+  text-transform: uppercase;
+  padding-left: 20px;
+}
+
+.home-list {
+  list-style: none;
+  border: ridge;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.home-article {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: #3593fb;
+}
+
+.home-article-date {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.home-article-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+
+/* CSS for article.html (article page) */
+
+.article-body {
+  margin-left: 20px;
+}
+
+.name-form {
+  margin-bottom: 20px;
+  margin-left: 25px;
+}
+
+.submit-form {
+  margin-top: 35px;
+}

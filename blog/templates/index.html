@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -6,14 +8,19 @@
     <title>Blog</title>
   </head>
   <body>
-    <h1> Welcome to my blog! <h1>
+    <h1 class="home-heading"> Articles <h1>
     {% for article in articles %}
-      <a href="{% url 'article_details' id=article.pk %}">
-        <h5> {{ article.published_date }} </h5>
-        <h3> {{ article }} </h3>
+    <ul class="home-list">
+      <li>
+      <a class="home-article" href="{% url 'article_details' id=article.pk %}">
+        <h5 class="home-article-date"> {{ article.published_date }} </h5>
+        <h3 class="home-article-title"> {{ article }} </h3>
         <!-- <p> {{ article.body }} </p> -->
       </a>
+      </li>
+    </ul>
     {% endfor %}
 
   </body>
 </html>
+{% endblock %}

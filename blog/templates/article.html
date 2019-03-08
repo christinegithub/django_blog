@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -7,8 +9,10 @@
     <title>Blog</title>
   </head>
   <body>
-    <h1> {{ article.title }} by {{ article.author}} </h1>
-    <h2> {{ article.published_date }}</h2>
+    <div class="article-body">
+    <h1> {{ article.title }} </h1>
+    <h3> by {{ article.author}} </h3>
+    <h4> {{ article.published_date }}</h4>
     <p> {{ article.body }} </p>
 
     <h4>Comments ({{ article.comments.count }}):</h4>
@@ -20,19 +24,23 @@
 
     <form action="{% url 'create_comment' %}" method="post">
       {% csrf_token %}
-      <input type="hidden" name="article" value="{{ article.pk }}">
+      <!-- <input type="hidden" name="article" value="{{ article.pk }}">
 
       <label for="comment-name">
         <span>Name:</span>
-        <input type="text" id="comment-name" name="comment-name">
+        <input class="name-form" type="text" id="comment-name" name="comment-name">
       </label>
-
+      <br>
       <label for="comment-message">
         <span>Comment:</span>
         <textarea id="comment-message" name="comment-message"></textarea>
       </label>
-
-      <input type="submit" name="comment-submit">
+      <br> -->
+      {{ form.as_p }}
+      <input class="submit-form" type="submit" name="comment-submit">
     </form>
+    </div>
   </body>
+{% endblock %}
+
 </html>
