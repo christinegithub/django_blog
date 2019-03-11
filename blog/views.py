@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
+from blog.forms import LoginForm
 from blog.models import Article, Topic, Comment, CommentForm, ArticleForm
 
 
@@ -41,3 +42,9 @@ def create_article(request):
     else:
         messages.error(request, form.errors)
         return render(request, 'new_article.html', {'form':ArticleForm()})
+
+def login_view(request):
+    form = LoginForm()
+    context = {'form': form}
+    response = render(request, 'login.html', context)
+    return HttpResponse(response)
