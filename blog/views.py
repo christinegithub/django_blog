@@ -2,6 +2,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
 from blog.forms import LoginForm
+from django.contrib.auth import authenticate, login, logout
+
 from blog.models import Article, Topic, Comment, CommentForm, ArticleForm
 
 
@@ -44,7 +46,24 @@ def create_article(request):
         return render(request, 'new_article.html', {'form':ArticleForm()})
 
 def login_view(request):
-    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            pw = form.cleaned_data['password']
+            user = authenticate(username = username, password = pw)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/home')
+            else:
+                form.add_error('username', 'Login failed')
+    else:
+        form = LoginForm()
+
     context = {'form': form}
     response = render(request, 'login.html', context)
     return HttpResponse(response)
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/home')
