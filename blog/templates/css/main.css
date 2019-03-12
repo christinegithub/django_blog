@@ -1,0 +1,118 @@
+/* CSS for base.html */
+
+.site-header {
+  color: grey;
+  border-top: solid grey 2px;
+  border-bottom: solid grey 2px;
+  font-size: 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.site-footer {
+  background: #444141;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+body {
+  background: #f3caca;
+}
+
+/* CSS for index.html */
+
+.picture-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+}
+
+/* Tablet view */
+
+@media (min-width : 600px) and (max-width : 768px) {
+  .picture-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Phone view */
+
+@media (max-width: 600px) {
+  .picture-list {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+p {
+  text-align: left;
+}
+
+img {
+  height: 200px;
+  width: 90%;
+}
+
+.each-image {
+  border: #0c8dd8 solid 1px;
+  text-align: center;
+  width: 95%;
+  margin: 5px 10px 5px 10px;
+  text-decoration: none;
+  color: grey;
+}
+
+.each-picture {
+  list-style: none;
+}
+
+ul {
+  padding-left: 1em;
+}
+
+.caption {
+  padding-left: 25px;
+}
+
+/* CSS for picture_search.html */
+
+.search-list {
+  padding-left: 0px;
+}
+
+.search-results {
+  color: grey;
+}
+
+.search-count {
+  border-bottom: solid grey 2px;
+}
+
+.picture-image {
+  width: 300px;
+}
+
+.picture-caption {
+  display: inline-block;
+}
+
+.results-list {
+  list-style: none;
+  padding-left: 5em;
+}
+
+.title {
+  font-style: italic;
+}
+
+/* Phone view */
+
+@media (max-width: 600px) {
+  .picture-caption {
+    display: block;
+  }
+}

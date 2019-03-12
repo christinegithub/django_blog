@@ -2,6 +2,7 @@ from django import forms
 from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.contrib.auth.models import User
 
 # Add a validation to the Article form so that if the article has draft
 # set to True, the published_date must be in the future.
@@ -11,19 +12,20 @@ def draft_date(value):
     if Article.draft == True and value < today:
         raise ValidationError('Date must be in the future.')
     elif Article.draft == False and value > today:
-        raise ValidationError('Date cannot bein the future')
+        raise ValidationError('Date cannot be in the future')
 
 def no_future(value):
     today = date.today()
     if value > today:
-        raise ValidationError('Purchase_Date cannot be in the future.')
+        raise ValidationError('Article date cannot be in the future.')
 
 class Article(models.Model):
     title = models.CharField(max_length = 255)
     body = models.TextField(validators=[MinLengthValidator(2)])
     draft = models.BooleanField()
-    published_date = models.DateField(help_text = "yyyy/mm/dd", validators=[draft_date])
+    published_date = models.DateField(help_text = "mm/dd/yyyy") #validators=[draft_date])
     author = models.CharField(max_length = 255)
+    user = models.ForeignKey(User, default = 1, on_delete = models.CASCADE, related_name = 'articles')
 
     def __str__(self):
         return self.title + " by " + self.author

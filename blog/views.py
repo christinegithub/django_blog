@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.contrib import messages
 from blog.forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+
 
 from blog.models import Article, Topic, Comment, CommentForm, ArticleForm
 
@@ -37,13 +39,18 @@ def create_comment(request):
         return render(request, 'article.html', {'form': CommentForm()})
 
 def create_article(request):
-    form = ArticleForm(request.POST)
-    if form.is_valid():
-        new_article = form.save()
-        return HttpResponseRedirect('/home')
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            form.user = request.user
+            new_article = form.save()
+            return HttpResponseRedirect('/home')
     else:
-        messages.error(request, form.errors)
-        return render(request, 'new_article.html', {'form':ArticleForm()})
+        form = ArticleForm()
+        context = {'form': form}
+        response = render(request, 'new_article.html', context)
+        return HttpResponse(response)
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -67,3 +74,20 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/home')
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username = username, password = raw_password)
+            login(request, user)
+            return HttpResponseRedirect('/home')
+    else:
+        form = UserCreationForm()
+
+    context = {'form': form}
+    response = render(request, 'signup.html', context)
+    return HttpResponse(response)
