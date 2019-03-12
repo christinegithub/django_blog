@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Article</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body>
+    <h2>Edit Article</h2>
+    <form action="{% url 'edit_article' id=article.pk %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Edit Article</button>
+    </form>
+  </body>
+</html>
+
+{% endblock %}

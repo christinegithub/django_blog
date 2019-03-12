@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from blog.forms import LoginForm
 from django.contrib.auth.decorators import login_required
@@ -55,6 +55,8 @@ def create_article(request):
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/home')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -78,6 +80,8 @@ def logout_view(request):
     return HttpResponseRedirect('/home')
 
 def signup(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/home')
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -92,4 +96,21 @@ def signup(request):
 
     context = {'form': form}
     response = render(request, 'signup.html', context)
+    return HttpResponse(response)
+
+@login_required
+def edit_article(request, id):
+    article = get_object_or_404(Article, pk = id, user = request.user.pk)
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            form.user = request.user
+            article.pk = article.id
+            edit_article = form.save()
+            return HttpResponseRedirect('/articles/'+str(article.pk))
+    else:
+        form = ArticleForm()
+
+    context = {'article': article, 'form': form}
+    response = render(request, 'edit_article.html', context)
     return HttpResponse(response)
