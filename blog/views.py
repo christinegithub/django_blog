@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
 from blog.forms import LoginForm
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 
@@ -24,6 +25,7 @@ def article_details(request, id):
     response = render(request, 'article.html', context)
     return HttpResponse(response)
 
+@login_required
 def new_article(request):
     context = {'form': ArticleForm()}
     response = render(request, 'new_article.html', context)
